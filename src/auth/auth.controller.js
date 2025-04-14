@@ -21,7 +21,9 @@ const loginController = async (req, res, next) => {
     const result = await loginService(data);
 
     if (_.isEmpty(result)) {
-        return next(new CreateError.BadRequest("Invalid email or password"));
+        res.status(StatusCodes.UNAUTHORIZED).json({
+            message: "Invalid email or password",
+        });
     }
 
     res.cookie("token", result.token, {
