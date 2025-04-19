@@ -50,30 +50,14 @@ const loginService = async (body) => {
 };
 
 const registerService = async (body) => {
-    let email;
-    const decodeJwtToken = (token) => {
-        const decodedToken = jwt.decode(token);
-        console.log("token", decodedToken);
-        body.roleId = decodedToken.roleId;
-        body.position = decodedToken.positionId;
-        body.institution = decodedToken.institutionId;
-        body.email = decodedToken.email;
-        email = decodedToken.email;
-    };
-    decodeJwtToken(body.token);
-    console.log(body);
     const userExist = await User.findOne({
         where: {
-            email: email,
+            email: body.email,
         },
     });
 
     if (userExist) {
         return { message: "User already exists", status: 1 };
-    }
-
-    if (body.token == null) {
-        return { message: "Token is required", status: 2 };
     }
 
     const hashedPassword = await bcrypt.hash(body.password, 10);

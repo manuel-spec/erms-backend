@@ -45,9 +45,8 @@ const registerValidator = [
     body("firstName"),
     body("middleName"),
     body("lastName"),
-    // body("email").isEmail().withMessage("Please provide a valid email address"),
+    body("email").isEmail().withMessage("Please provide a valid email address"),
     body("password"),
-    body("laboratoryId"),
     body("roleId"),
 
     (req, res, next) => {
