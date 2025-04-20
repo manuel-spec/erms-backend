@@ -20,7 +20,7 @@ const createServiceReportValidator = [
     body("repairRequestId")
         .isInt()
         .withMessage("repairRequestId must be an integer"),
-    body("assignedTo").optional().isString(),
+    body("assignedTo").optional().isInt(),
     body("status")
         .optional()
         .isIn(STATUSES)

@@ -38,7 +38,11 @@ Router.use(
     // passport.authenticate("jwt", { session: false }),
     indicatorSwapRoutes
 );
-Router.use("/repairs", repairRequestRoutes);
+Router.use(
+    "/repairs",
+    passport.authenticate("jwt", { session: false }),
+    repairRequestRoutes
+);
 Router.use(
     "/indicators-value-types/values",
     // passport.authenticate("jwt", { session: false }),

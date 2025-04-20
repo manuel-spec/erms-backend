@@ -1,6 +1,7 @@
 const { ServiceReport } = require("../models/serviceReport.model.js");
 const _ = require("lodash");
 const { Op } = require("sequelize");
+const { User } = require("../../auth/model/user.model.js");
 
 const getAllServiceReportsService = async (
     page = 1,
@@ -18,6 +19,14 @@ const getAllServiceReportsService = async (
         order: [["serviceDate", "DESC"]],
         limit: all ? undefined : pageSize,
         offset: all ? undefined : offset,
+
+        include: [
+            {
+                model: User,
+                as: "assignee",
+                attributes: ["firstName", "lastName"],
+            },
+        ],
     });
     const totalPages = Math.ceil(totalItems / pageSize);
     if (all) return rows;
@@ -25,7 +34,15 @@ const getAllServiceReportsService = async (
 };
 
 const getServiceReportByIdService = async (id) => {
-    const sr = await ServiceReport.findByPk(id);
+    const sr = await ServiceReport.findByPk(id, {
+        include: [
+            {
+                model: User,
+                as: "assignee",
+                attributes: ["firstName", "lastName"],
+            },
+        ],
+    });
     if (_.isEmpty(sr)) return;
     return { serviceReport: sr };
 };

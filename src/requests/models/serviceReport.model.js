@@ -2,7 +2,7 @@
 const { DataTypes } = require("sequelize");
 const { sequelize } = require("../../config/database/sequelize.config.js");
 const { RepairRequest } = require("./repairRequest.model.js");
-
+const { User } = require("../../auth/model/user.model.js");
 const ServiceReport = sequelize.define(
     "ServiceReport",
     {
@@ -12,7 +12,15 @@ const ServiceReport = sequelize.define(
             allowNull: false,
             references: { model: RepairRequest, key: "id" },
         },
-        assignedTo: { type: DataTypes.STRING, allowNull: true },
+        assignedTo: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            references: {
+                model: User,
+                key: "id",
+                onDelete: "SET NULL",
+            },
+        },
         status: {
             type: DataTypes.ENUM(
                 "Submitted",
@@ -43,8 +51,10 @@ const ServiceReport = sequelize.define(
     }
 );
 
-// Associations
 ServiceReport.belongsTo(RepairRequest, { foreignKey: "repairRequestId" });
 RepairRequest.hasOne(ServiceReport, { foreignKey: "repairRequestId" });
+
+ServiceReport.belongsTo(User, { foreignKey: "assignedTo", as: "assignee" });
+User.hasMany(ServiceReport, { foreignKey: "assignedTo", as: "serviceReports" });
 
 module.exports = { ServiceReport };

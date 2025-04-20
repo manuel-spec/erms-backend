@@ -23,7 +23,7 @@ Router.post(
 Router.get("/:id", idValidatorSR, CatchAsync(getServiceReportController));
 Router.patch(
     "/:id",
-    updateServiceReportValidator,
+
     CatchAsync(updateServiceReportController)
 );
 Router.delete("/:id", idValidatorSR, CatchAsync(deleteServiceReportController));

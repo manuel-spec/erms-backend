@@ -48,7 +48,8 @@ const registerValidator = [
     body("email").isEmail().withMessage("Please provide a valid email address"),
     body("password"),
     body("roleId"),
-
+    body("dateOfBirth").notEmpty().withMessage("Date of Birth is required"),
+    body("gender").notEmpty().withMessage("Gender is required"),
     (req, res, next) => {
         const errors = validationResult(req);
 
