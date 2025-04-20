@@ -11,7 +11,7 @@ const {
     updateSkillController,
     deleteSkillController,
 } = require("./skills.controller.js");
-const { CatchAsync } = require("../../utils/catchAsync.js");
+const { CatchAsync } = require("../../../utils/catchAsync.js");
 
 const router = express.Router();
 

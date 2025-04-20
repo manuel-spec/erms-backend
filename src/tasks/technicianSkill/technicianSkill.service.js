@@ -1,8 +1,23 @@
 const { TechnicianSkill } = require("../models/technicianSkill.model.js");
+const { User } = require("../../auth/model/user.model.js");
+const { Skill } = require("../models/skill.model.js");
 const _ = require("lodash");
 
 const getAllTechnicianSkillsService = async () => {
-    return await TechnicianSkill.findAll();
+    return await TechnicianSkill.findAll({
+        include: [
+            {
+                model: User,
+                as: "technician",
+                attributes: ["id", "firstName", "lastName"],
+            },
+            {
+                model: Skill,
+                as: "skill",
+                attributes: ["id", "name"],
+            },
+        ],
+    });
 };
 
 const createTechnicianSkillService = async (data) => {

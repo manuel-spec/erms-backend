@@ -1,6 +1,6 @@
 const { DataTypes } = require("sequelize");
 const { sequelize } = require("../../config/database/sequelize.config.js");
-const { User } = require("./user.model.js");
+const { User } = require("../../auth/model/user.model.js");
 
 const Availability = sequelize.define(
     "Availability",

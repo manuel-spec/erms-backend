@@ -87,7 +87,8 @@ const startAPI = async (PORT) => {
 
         if (process.env.NODE_ENV === "production") {
             // Sync models without altering existing tables and data
-            await sequelize.sync({ alter: true });
+            // await sequelize.sync({ alter: true });
+            await sequelize.sync();
             console.info(`♻️  Database model synced in production ...`);
         }
         console.info(`♻️  Database model synced ...`);

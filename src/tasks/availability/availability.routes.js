@@ -23,7 +23,7 @@ Router.post(
 Router.get("/:id", idValidatorAV, CatchAsync(getAvailabilityController));
 Router.patch(
     "/:id",
-    updateAvailabilityValidator,
+
     CatchAsync(updateAvailabilityController)
 );
 Router.delete("/:id", idValidatorAV, CatchAsync(deleteAvailabilityController));
