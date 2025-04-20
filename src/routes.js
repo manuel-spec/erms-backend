@@ -11,6 +11,7 @@ const indicatorValueTypesRoutes = require("./indicator/indicatorValues/indivator
 const { roleMiddleware } = require("./middleware/roleMiddleware.js");
 const optionRoutes = require("./indicator/options/options.routes.js");
 const repairRequestRoutes = require("./requests/requests.routes.js");
+const tasksRoutes = require("./tasks/tasks.routes.js");
 const Router = express.Router();
 
 // Use authentication routes
@@ -43,6 +44,13 @@ Router.use(
     passport.authenticate("jwt", { session: false }),
     repairRequestRoutes
 );
+
+Router.use(
+    "/tasks",
+    passport.authenticate("jwt", { session: false }),
+    tasksRoutes
+);
+
 Router.use(
     "/indicators-value-types/values",
     // passport.authenticate("jwt", { session: false }),
