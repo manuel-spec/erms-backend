@@ -10,7 +10,7 @@ const indicatorValueTypesRoutes = require("./indicator/indicatorValues/indivator
 
 const { roleMiddleware } = require("./middleware/roleMiddleware.js");
 const optionRoutes = require("./indicator/options/options.routes.js");
-
+const repairRequestRoutes = require("./requests/requests.routes.js");
 const Router = express.Router();
 
 // Use authentication routes
@@ -38,6 +38,7 @@ Router.use(
     // passport.authenticate("jwt", { session: false }),
     indicatorSwapRoutes
 );
+Router.use("/repairs", repairRequestRoutes);
 Router.use(
     "/indicators-value-types/values",
     // passport.authenticate("jwt", { session: false }),
