@@ -1,6 +1,6 @@
 const { DataTypes } = require("sequelize");
 const { sequelize } = require("../../config/database/sequelize.config.js");
-
+const { User } = require("../../auth/model/user.model.js");
 const RepairRequest = sequelize.define(
     "RepairRequest",
     {
@@ -28,6 +28,23 @@ const RepairRequest = sequelize.define(
             allowNull: false,
             defaultValue: "Medium",
         },
+        buildingBlockNumber: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        bureoNumber: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        userId: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            references: {
+                model: User,
+                key: "id",
+                onDelete: "SET NULL",
+            },
+        },
     },
     {
         timestamps: true,
@@ -35,5 +52,7 @@ const RepairRequest = sequelize.define(
         tableName: "repair_requests",
     }
 );
+
+RepairRequest.belongsTo(User, { foreignKey: "userId" });
 
 module.exports = { RepairRequest };

@@ -1,6 +1,7 @@
 const { RepairRequest } = require("../models/repairRequest.model.js");
 const _ = require("lodash");
 const { Op } = require("sequelize");
+const { User } = require("../../auth/model/user.model.js");
 
 const getAllRepairRequestsService = async (
     page = 1,
@@ -24,6 +25,11 @@ const getAllRepairRequestsService = async (
         order: [["requestDate", "DESC"]],
         limit: all ? undefined : pageSize,
         offset: all ? undefined : offset,
+        include: [
+            {
+                model: User,
+            },
+        ],
     });
     const totalPages = Math.ceil(totalItems / pageSize);
     if (all) return rows;

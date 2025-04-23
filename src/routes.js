@@ -13,7 +13,7 @@ const optionRoutes = require("./indicator/options/options.routes.js");
 const repairRequestRoutes = require("./requests/requests.routes.js");
 const tasksRoutes = require("./tasks/tasks.routes.js");
 const Router = express.Router();
-
+const TechnicianFeedbackRoutes = require("./feedbacks/feedback.routes.js");
 // Use authentication routes
 Router.use("/auth", authRoutes);
 
@@ -49,6 +49,12 @@ Router.use(
     "/tasks",
     passport.authenticate("jwt", { session: false }),
     tasksRoutes
+);
+
+Router.use(
+    "/feedbacks",
+    passport.authenticate("jwt", { session: false }),
+    TechnicianFeedbackRoutes
 );
 
 Router.use(
