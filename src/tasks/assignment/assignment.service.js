@@ -1,8 +1,24 @@
+const { User } = require("../../auth/model/user.model.js");
+const {
+    RepairRequest,
+} = require("../../requests/models/repairRequest.model.js");
 const { Assignment } = require("../models/assignment.model.js");
 const _ = require("lodash");
 
 const getAllAssignmentsService = async () => {
-    return await Assignment.findAll({ order: [["assignedAt", "DESC"]] });
+    return await Assignment.findAll({
+        include: [
+            {
+                model: RepairRequest,
+            },
+
+            {
+                model: User,
+                as: "technician",
+            },
+        ],
+        order: [["assignedAt", "DESC"]],
+    });
 };
 
 const getAssignmentByIdService = async (id) => {
