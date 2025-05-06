@@ -8,7 +8,7 @@ const getAllAvailabilitiesService = async () => {
             {
                 model: User,
                 as: "technician",
-            },
+            },``
         ],
     });
     if (_.isEmpty(av)) return;
